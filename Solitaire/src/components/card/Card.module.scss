@@ -1,0 +1,7 @@
+.card {
+  cursor: pointer;
+  & > img {
+    pointer-events: none;
+    max-width: 75px;
+  }
+}

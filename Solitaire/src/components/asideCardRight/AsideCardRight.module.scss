@@ -1,0 +1,16 @@
+.wrap {
+  position: relative;
+  max-width: 75px;
+  width: 100%;
+  min-height: 104px;
+}
+.last_card {
+  position: absolute;
+  max-width: 75px;
+  min-height: 104px;
+  & > img {
+    max-width: 75px;
+    min-height: 104px;
+    pointer-events: none;
+  }
+}

@@ -1,0 +1,8 @@
+.card {
+  cursor: pointer;
+  position: absolute;
+  & > img {
+    pointer-events: none;
+    max-width: 75px;
+  }
+}

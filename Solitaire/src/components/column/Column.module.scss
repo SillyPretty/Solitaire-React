@@ -1,0 +1,12 @@
+.wrap {
+  position: relative;
+}
+.last_card {
+  width: 75px;
+  height: 104px;
+  & > img{
+    pointer-events: none;
+    display: inline-block;
+    width: 100%;
+  }
+}
