@@ -6,11 +6,9 @@
 }
 .last_card {
   position: absolute;
-  max-width: 75px;
-  min-height: 104px;
   & > img {
+    pointer-events: none;
     max-width: 75px;
     min-height: 104px;
-    pointer-events: none;
   }
 }

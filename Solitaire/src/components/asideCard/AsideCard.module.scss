@@ -1,4 +1,6 @@
 .card {
+  cursor: pointer;
+  position: absolute;
   &__wrap {
     cursor: pointer;
     & > img {

@@ -6,19 +6,21 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DropZone } from '../../model'
 import Column from '../column/Column'
 import Aside from '../aside/Aside'
-import { AddColumn, TypeAddColumn, useEffectFnc } from '../../model/app'
+import { AddColumn, AddColumnAside, useEffectFnc } from '../../model/app'
 import AsideCardRight from '../asideCardRight/AsideCardRight.tsx'
 
-import { fetchCards } from '../../model/api/api'
+import { IFetchCard, fetchCards } from '../../model/api/api'
 import {
   ICard,
   IColumn,
+  IColumns,
+  IColumnsAside,
   IItem,
 } from '../../model/interfaces/ICard.interface.ts'
 import './App.scss'
 
 const App: FC = () => {
-  const [cards, setCards] = useState<ICard[]>([])
+  const [cards, setCards] = useState<IFetchCard[]>([])
   const [column1, setColumn1] = useState<ICard[]>([])
   const [column2, setColumn2] = useState<ICard[]>([])
   const [column3, setColumn3] = useState<ICard[]>([])
@@ -49,6 +51,8 @@ const App: FC = () => {
       cards
     )
   }, [cards])
+
+  useEffect(() => {}, [columnAside1, columnAside2, columnAside3, columnAside4])
 
   const handleDrop = (
     item: IItem,
@@ -83,61 +87,11 @@ const App: FC = () => {
     }
   }
 
-  const AddColumnAside = (
-    item: IItem,
-    columnLast: ICard[],
-    column: IColumn,
-    setColumnLast: React.Dispatch<React.SetStateAction<ICard[]>>,
-    setColumn: React.Dispatch<React.SetStateAction<ICard[]>>,
-    suitColumn: 'DIAMONDS' | 'HEARTS' | 'SPADES' | 'CLUBS'
-  ) => {
-    if (column.content.length === 0) {
-      if (item.content.value === 'ACE' && item.content.suit === suitColumn) {
-        const indexOfMass = columnLast.indexOf(item.content)
-        let newColumn = [...columnLast]
-        let sliceCards = newColumn.splice(indexOfMass, 1)
-        newColumn = newColumn.map((card, index) => {
-          if (index === newColumn.length - 1) {
-            return { ...card, isVisible: true }
-          }
-          return card
-        })
-        sliceCards = sliceCards.map(card => ({
-          ...card,
-          column: column.idColumn,
-        }))
-        setColumnLast(newColumn)
-        setColumn(column.content.concat(sliceCards))
-        return
-      }
-      return
-    }
-    if (item.content.column === column.idColumn) return
-    if (
-      item.content.size !==
-      column.content[column.content.length - 1].size + 1
-    )
-      return
-
-    const indexOfMass = columnLast.indexOf(item.content)
-    let newColumn = [...columnLast]
-    let sliceCards = newColumn.splice(indexOfMass, 1)
-    newColumn = newColumn.map((card, index) => {
-      if (index === newColumn.length - 1) {
-        return { ...card, isVisible: true }
-      }
-      return card
-    })
-    sliceCards = sliceCards.map(card => ({ ...card, column: column.idColumn }))
-    setColumn(column.content.concat(sliceCards))
-    setColumnLast(newColumn)
-  }
-
   const handleDropAside = (
     item: IItem,
     column: IColumn,
     setColumn: React.Dispatch<React.SetStateAction<ICard[]>>,
-    suitColumn: 'DIAMONDS' | 'HEARTS' | 'SPADES' | 'CLUBS'
+    suitColumn: string
   ) => {
     switch (item.content.column) {
       case 'column0':
@@ -174,154 +128,118 @@ const App: FC = () => {
     }
   }
 
+  const columns: IColumns[] = [
+    {
+      idColumn: 'column1',
+      column: column1,
+      setColumn: setColumn1,
+    },
+    {
+      idColumn: 'column2',
+      column: column2,
+      setColumn: setColumn2,
+    },
+    {
+      idColumn: 'column3',
+      column: column3,
+      setColumn: setColumn3,
+    },
+    {
+      idColumn: 'column4',
+      column: column4,
+      setColumn: setColumn4,
+    },
+    {
+      idColumn: 'column5',
+      column: column5,
+      setColumn: setColumn5,
+    },
+    {
+      idColumn: 'column6',
+      column: column6,
+      setColumn: setColumn6,
+    },
+    {
+      idColumn: 'column7',
+      column: column7,
+      setColumn: setColumn7,
+    },
+  ]
+
+  const columnsAside: IColumnsAside[] = [
+    {
+      idColumn: 'columnAside1',
+      columnAside: columnAside1,
+      setColumnAside: setColumnAside1,
+      suit: 'HEARTS',
+    },
+    {
+      idColumn: 'columnAside2',
+      columnAside: columnAside2,
+      setColumnAside: setColumnAside2,
+      suit: 'DIAMONDS',
+    },
+    {
+      idColumn: 'columnAside3',
+      columnAside: columnAside3,
+      setColumnAside: setColumnAside3,
+      suit: 'CLUBS',
+    },
+    {
+      idColumn: 'columnAside4',
+      columnAside: columnAside4,
+      setColumnAside: setColumnAside4,
+      suit: 'SPADES',
+    },
+  ]
+
   return (
     <DndProvider backend={HTML5Backend}>
       <main className='main'>
-        <Aside
-          freeCard={freeCard}
-          setFreeCard={setFreeCard}
-        />
+        <aside className='aside_left'>
+          <Aside
+            freeCard={freeCard}
+            setFreeCard={setFreeCard}
+          />
+        </aside>
         <div className='wrap'>
-          <DropZone
-            onDrop={item =>
-              handleDrop(
-                item,
-                { idColumn: 'column1', content: column1 },
-                setColumn1
-              )
-            }
-          >
-            <Column column={column1} />
-          </DropZone>
-          <DropZone
-            onDrop={item =>
-              handleDrop(
-                item,
-                { idColumn: 'column2', content: column2 },
-                setColumn2
-              )
-            }
-          >
-            <Column column={column2} />
-          </DropZone>
-          <DropZone
-            onDrop={item =>
-              handleDrop(
-                item,
-                { idColumn: 'column3', content: column3 },
-                setColumn3
-              )
-            }
-          >
-            <Column column={column3} />
-          </DropZone>
-          <DropZone
-            onDrop={item =>
-              handleDrop(
-                item,
-                { idColumn: 'column4', content: column4 },
-                setColumn4
-              )
-            }
-          >
-            <Column column={column4} />
-          </DropZone>
-          <DropZone
-            onDrop={item =>
-              handleDrop(
-                item,
-                { idColumn: 'column5', content: column5 },
-                setColumn5
-              )
-            }
-          >
-            <Column column={column5} />
-          </DropZone>
-          <DropZone
-            onDrop={item =>
-              handleDrop(
-                item,
-                { idColumn: 'column6', content: column6 },
-                setColumn6
-              )
-            }
-          >
-            <Column column={column6} />
-          </DropZone>
-          <DropZone
-            onDrop={item =>
-              handleDrop(
-                item,
-                { idColumn: 'column7', content: column7 },
-                setColumn7
-              )
-            }
-          >
-            <Column column={column7} />
-          </DropZone>
+          {columns.map(({ idColumn, column, setColumn }, index) => (
+            <DropZone
+              key={index}
+              onDrop={item =>
+                handleDrop(
+                  item,
+                  { idColumn: idColumn, content: column },
+                  setColumn
+                )
+              }
+            >
+              <Column column={column} />
+            </DropZone>
+          ))}
         </div>
-        <div className='aside__right'>
-          <DropZone
-            onDrop={item =>
-              handleDropAside(
-                item,
-                { idColumn: 'columnAside1', content: columnAside1 },
-                setColumnAside1,
-                'HEARTS'
-              )
-            }
-          >
-            <AsideCardRight
-              column={columnAside1}
-              suit='HEARTS'
-            />
-          </DropZone>
-          <DropZone
-            onDrop={item =>
-              handleDropAside(
-                item,
-                { idColumn: 'columnAside2', content: columnAside2 },
-                setColumnAside2,
-                'DIAMONDS'
-              )
-            }
-          >
-            <AsideCardRight
-              column={columnAside2}
-              suit='DIAMONDS'
-            />
-          </DropZone>
-          <DropZone
-            onDrop={item =>
-              handleDropAside(
-                item,
-                { idColumn: 'columnAside3', content: columnAside3 },
-                setColumnAside3,
-                'CLUBS'
-              )
-            }
-          >
-            <AsideCardRight
-              column={columnAside3}
-              suit='CLUBS'
-            />
-          </DropZone>
-          <DropZone
-            onDrop={item =>
-              handleDropAside(
-                item,
-                { idColumn: 'columnAside4', content: columnAside4 },
-                setColumnAside4,
-                'SPADES'
-              )
-            }
-          >
-            <AsideCardRight
-              column={columnAside4}
-              suit='SPADES'
-            />
-          </DropZone>
-        </div>
+        <aside className='aside__right'>
+          {columnsAside.map(
+            ({ idColumn, columnAside, setColumnAside, suit }, index) => (
+              <DropZone
+                key={index}
+                onDrop={item =>
+                  handleDropAside(
+                    item,
+                    { idColumn: idColumn, content: columnAside },
+                    setColumnAside,
+                    suit
+                  )
+                }
+              >
+                <AsideCardRight
+                  column={columnAside}
+                  suit={suit}
+                />
+              </DropZone>
+            )
+          )}
+        </aside>
       </main>
     </DndProvider>
   )

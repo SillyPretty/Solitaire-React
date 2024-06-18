@@ -7,7 +7,7 @@ import Card from '../card/Card'
 
 interface IAsideCardRight {
   column: ICard[]
-  suit: 'DIAMONDS' | 'HEARTS' | 'SPADES' | 'CLUBS'
+  suit: string
 }
 
 const AsideCardRight: FC<IAsideCardRight> = ({ column, suit }) => {

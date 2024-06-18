@@ -1,16 +1,18 @@
+import { IFetchCard } from '../api/api'
+
 export interface ICard {
-  id?: number
-  column?: string
+  id: number
+  column: string
   code: string
   image: string
-  isVisible?: boolean
+  isVisible: boolean
   images: {
     svg: string
     png: string
   }
   suit: string
   value: string
-  color?: string
+  color: string
   size: number
 }
 
@@ -33,7 +35,7 @@ export type TypeUseEffectFnc = (
   setColumn6: React.Dispatch<React.SetStateAction<ICard[]>>,
   setColumn7: React.Dispatch<React.SetStateAction<ICard[]>>,
   setFreeCard: React.Dispatch<React.SetStateAction<ICard[]>>,
-  cards: ICard[]
+  cards: IFetchCard[]
 ) => void
 
 export type TypeGroupItemFunc = (
@@ -41,5 +43,18 @@ export type TypeGroupItemFunc = (
   index: number,
   number: number,
   numberColumn: string,
-  cards: ICard[]
+  cards: IFetchCard[]
 ) => void
+
+export interface IColumns {
+  idColumn: string
+  column: ICard[]
+  setColumn: React.Dispatch<React.SetStateAction<ICard[]>>
+}
+
+export interface IColumnsAside {
+  idColumn: string
+  columnAside: ICard[]
+  setColumnAside: React.Dispatch<React.SetStateAction<ICard[]>>
+  suit: string
+}

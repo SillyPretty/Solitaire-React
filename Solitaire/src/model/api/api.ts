@@ -1,11 +1,18 @@
 import axios from 'axios'
 
-import {
-  ICard
-} from '../interfaces/ICard.interface'
+export interface IFetchCard {
+  code: string
+  image: string
+  images: {
+    svg: string
+    png: string
+  }
+  suit: string
+  value: string
+}
 
 export const fetchCards = async (
-  setCards: React.Dispatch<React.SetStateAction<ICard[]>>
+  setCards: React.Dispatch<React.SetStateAction<IFetchCard[]>>
 ) => {
   try {
     const response = await axios.get(

@@ -8,7 +8,9 @@ import { IAside } from '../../model/interfaces/IAsideCard.interface'
 
 import styles from './Aside.module.scss'
 
+
 const Aside: FC<IAside> = ({ freeCard, setFreeCard }) => {
+
   const rebut = () => {
     setFreeCard(
       freeCard.map(card => {

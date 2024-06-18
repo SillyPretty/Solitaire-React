@@ -10,22 +10,14 @@ interface IAsideCard {
 }
 
 const AsideCard: FC<IAsideCard> = ({ content, number, click }) => {
-
   return (
-    <div
-      className={styles.card}
-      style={{
-        position: 'absolute',
-        cursor: 'pointer',
-      }}
-      onClick={() => click()}
-    >
+    <div className={styles.card}>
       {content.isVisible ? (
         <div
           className={styles.card__wrap}
           style={{
             position: 'absolute',
-            top: `500px`,
+            top: `350px`,
             zIndex: `${number}`,
           }}
         >
@@ -35,7 +27,10 @@ const AsideCard: FC<IAsideCard> = ({ content, number, click }) => {
           />
         </div>
       ) : (
-        <div className={styles.card__wrap}>
+        <div
+          className={styles.card__wrap}
+          onClick={() => click()}
+        >
           <img
             src='images/loading.png'
             alt='loading'
