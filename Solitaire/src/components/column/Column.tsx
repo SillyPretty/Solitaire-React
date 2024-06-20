@@ -28,8 +28,7 @@ const Column: FC<IColumn> = ({ column }) => {
             key={index}
           >
             <Card
-              img={content.image}
-              isVisible={content.isVisible}
+              content={content}
               style={index * 3}
             />
           </DraggableCard>

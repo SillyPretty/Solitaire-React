@@ -1,16 +1,14 @@
 import { FC } from 'react'
 
 import { DraggableCard } from '../../model'
-import AsideCard from '../asideCard/AsideCard'
 import ResetButton from '../resetButton/ResetButton'
 
 import { IAside } from '../../model/interfaces/IAsideCard.interface'
 
 import styles from './Aside.module.scss'
-
+import Card from '../card/Card'
 
 const Aside: FC<IAside> = ({ freeCard, setFreeCard }) => {
-
   const rebut = () => {
     setFreeCard(
       freeCard.map(card => {
@@ -48,10 +46,11 @@ const Aside: FC<IAside> = ({ freeCard, setFreeCard }) => {
             content={content}
             key={index}
           >
-            <AsideCard
+            <Card
               content={content}
               click={clickFnc}
               number={freeCard.length - index}
+              aside={true}
             />
           </DraggableCard>
         )

@@ -30,10 +30,9 @@ const AsideCardRight: FC<IAsideCardRight> = ({ column, suit }) => {
             id={content.id}
             key={index}
           >
-            <div style={{position: 'absolute'}}>
+            <div style={{ position: 'absolute' }}>
               <Card
-                img={content.image}
-                isVisible={content.isVisible}
+                content={content}
                 style={0}
               />
             </div>

@@ -5,7 +5,6 @@ import {
   TypeGroupItemFunc,
   IItem,
   IColumn,
-
 } from './interfaces/ICard.interface'
 
 const CardColor = (card: IFetchCard): string => {
@@ -86,7 +85,6 @@ export const useEffectFnc: TypeUseEffectFnc = (
         break
     }
   })
-
   setColumn1(newColumn1)
   setColumn2(newColumn2)
   setColumn3(newColumn3)
@@ -140,7 +138,6 @@ export const AddColumn: TypeAddColumn = (
   setColumnLast,
   setColumn
 ) => {
-  // if (item.content.column === column.idColumn) return
   if (column.content.length === 0) {
     if (item.content.value !== 'KING') return
   } else {
@@ -205,3 +202,4 @@ export const AddColumnAside: TypeAddColumnAside = (
   setColumn(column.content.concat(sliceCards))
   setColumnLast(columnLast)
 }
+

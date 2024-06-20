@@ -1,0 +1,31 @@
+.wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 15;
+  background-color: #1f1f1f;
+  &__content {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    > h1 {
+      font-size: 120px;
+    }
+    > button {
+      margin-top: 20px;
+      font-size: 50px;
+      border: 1px solid #fff;
+      border-radius: 20px;
+      padding: 5px 20px;
+      transition: all 600ms ease;
+      &:hover {
+        border: 1px solid #34a249;
+        box-shadow: 0px 5px 115px #34a249;
+      }
+    }
+  }
+}
