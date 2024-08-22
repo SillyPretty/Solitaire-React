@@ -1,6 +1,7 @@
+import { FC } from 'react'
 import styles from './WinScreen.module.scss'
 
-const WinScreen = () => {
+const WinScreen: FC = () => {
   const refreshPage = () => {
     window.location.reload()
   }

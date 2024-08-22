@@ -41,6 +41,18 @@ const App: FC = () => {
   }, [])
 
   useEffect(() => {
+
+    const unloadCallback = (event: any) => {
+      event.preventDefault()
+      return (event.returnValue = '')
+    }
+
+    window.addEventListener('beforeunload', unloadCallback)
+
+    return () => window.removeEventListener('beforeunload', unloadCallback)
+  }, [])
+
+  useEffect(() => {
     useEffectFnc(
       setColumn1,
       setColumn2,
